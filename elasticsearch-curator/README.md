@@ -66,8 +66,14 @@ To remove these jobs, run the following :
 # kubectl get cronjob 
 NAME                                      SCHEDULE    SUSPEND   ACTIVE    LAST SCHEDULE   AGE
 logcenter-dev-elasticsearch-curator       0 1 * * *   False     0         <none>
+```
 
-root@vm-shaltt81:~# curator_cli --host 10.72.244.73 --port 9200 show_indices --verbose
+### curator_cli查看服务
+
+```
+#pip install elasticsearch-curator
+#pip install --upgrade pip
+# curator_cli --host 10.72.244.73 --port 9200 show_indices --verbose
 .kibana                            open   48.8KB        6   1   1 2018-07-19T02:44:42Z
 .monitoring-es-6-2018.08.02        open  336.4MB   590670   1   1 2018-08-02T00:00:06Z
 .monitoring-es-6-2018.08.03        open  338.6MB   591630   1   1 2018-08-03T00:00:00Z
@@ -98,5 +104,6 @@ logstash-2018.08                   open  453.6MB   261194   5   1 2018-08-01T06:
 tomcat-log-2018.07                 open   43.4MB   203850   5   1 2018-07-25T03:35:39Z
 tomcat-log-2018.08                 open   19.3MB    89372   5   1 2018-08-01T12:34:35Z
 
+#curator_cli --host 10.72.244.73 --port 9200 delete_indices  --filter_list '[{"filtertype":"age","source":"creation_date","direction":"older","unit":"days","unit_count":3},{"filtertype":"pattern","kind":"prefix","value":".monitoring-es-6-|.monitoring-kibana-6-|.monitoring-logstash-6-"}]'
 ```
 
